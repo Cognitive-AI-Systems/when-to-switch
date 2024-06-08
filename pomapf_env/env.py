@@ -1,5 +1,5 @@
 from pogema import pogema_v0
-from pogema.animation import AnimationMonitor, AnimationConfig
+from pogema import AnimationMonitor, AnimationConfig
 from pogema.integrations.sample_factory import AutoResetWrapper
 
 from pomapf_env.wrappers import RewardShaping, MultiMapWrapper

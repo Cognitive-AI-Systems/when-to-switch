@@ -2,7 +2,7 @@ import pathlib
 from typing import Optional
 
 import torch
-from pogema.animation import AnimationConfig, AnimationMonitor
+from pogema import AnimationConfig, AnimationMonitor
 from pogema_toolbox.algorithm_config import AlgoBase
 from pydantic import BaseModel
 

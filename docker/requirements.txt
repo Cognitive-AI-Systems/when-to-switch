@@ -9,5 +9,5 @@ cppimport==22.8.2
 protobuf<=3.20
 prettytable<=3.7.0
 importlib-metadata==4.13.0
-pogema==1.2.3a2
-pogema-toolbox==0.0.3a6
+pogema==1.2.3a3
+pogema-toolbox==0.0.3a7
