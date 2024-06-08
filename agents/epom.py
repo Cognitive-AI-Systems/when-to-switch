@@ -3,6 +3,8 @@ from copy import deepcopy
 from os.path import join
 from pathlib import Path
 
+import gym
+
 try:
     from typing import Literal
 except ImportError:
@@ -19,7 +21,7 @@ from sample_factory.algorithms.appo.model_utils import get_hidden_size
 from sample_factory.envs.create_env import create_env
 from sample_factory.utils.utils import AttrDict
 
-from agents.utils_agents import AlgoBase, run_algorithm
+from agents.utils_agents import LearningAlgoBase, run_algorithm
 from learning.epom_config import Environment
 from learning.grid_memory import MultipleGridMemory
 from pomapf_env.wrappers import MatrixObservationWrapper
@@ -27,7 +29,7 @@ from pomapf_env.wrappers import MatrixObservationWrapper
 from train_epom import validate_config, register_custom_components
 
 
-class EpomConfig(AlgoBase, extra=Extra.forbid):
+class EpomConfig(LearningAlgoBase, extra=Extra.forbid):
     name: Literal['EPOM'] = 'EPOM'
     path_to_weights: str = "weights/epom"
 
@@ -49,6 +51,8 @@ class EPOM:
         algo_cfg = flat_config
 
         env = create_env(algo_cfg.env, cfg=algo_cfg, env_config={})
+        # Patching action_space for old sample-factory
+        env.action_space = gym.spaces.Discrete(5)
         actor_critic = create_actor_critic(algo_cfg, env.observation_space, env.action_space)
         env.close()
 
@@ -77,6 +81,9 @@ class EPOM:
         torch.manual_seed(self.algo_cfg.seed)
         self.mgm.clear()
         self._step = 0
+
+    def reset_states(self):
+        self.after_reset()
 
     def get_additional_info(self):
         result = {"rl_used": 1.0, }

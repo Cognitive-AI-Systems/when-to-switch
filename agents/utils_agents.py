@@ -3,13 +3,14 @@ from typing import Optional
 
 import torch
 from pogema.animation import AnimationConfig, AnimationMonitor
+from pogema_toolbox.algorithm_config import AlgoBase
 from pydantic import BaseModel
 
 from pomapf_env.env import make_pomapf
 from pomapf_env.pomapf_config import POMAPFConfig
 
 
-class AlgoBase(BaseModel):
+class LearningAlgoBase(AlgoBase):
     name: str = None
     num_process: int = 3
     device: str = 'cuda'

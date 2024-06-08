@@ -1,13 +1,13 @@
-gym==0.21.0
+gym==0.22.0
 numpy>=1.21.5,<=1.26.0
 pydantic>=1.8.2,<2.0
-wandb==0.12.1
-torch==1.8.1
+torch==1.11.0
 sample-factory==1.121.3
 catalyst>=21.12,<=22.4
-pogema==1.1.0
 pybind11>=2.10.0,<=2.11.1
 cppimport==22.8.2
 protobuf<=3.20
 prettytable<=3.7.0
 importlib-metadata==4.13.0
+pogema==1.2.3a2
+pogema-toolbox==0.0.3a6

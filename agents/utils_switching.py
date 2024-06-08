@@ -2,13 +2,14 @@ from abc import abstractmethod
 from typing import Optional
 
 import numpy as np
+from pogema_toolbox.algorithm_config import AlgoBase
 from pydantic import BaseModel, Extra
 
 from agents.epom import EpomConfig, EPOM
 from agents.replan import RePlanConfig, RePlan
 
 
-class SwitcherBaseConfig(BaseModel, extra=Extra.forbid):
+class SwitcherBaseConfig(AlgoBase, extra=Extra.forbid):
     planning: RePlanConfig = RePlanConfig(fix_loops=True, add_none_if_loop=True, no_path_random=False,
                                           use_best_move=False, fix_nones=False)
     learning: EpomConfig = EpomConfig()
@@ -58,6 +59,9 @@ class SwitcherBase:
         self.learning.after_reset()
 
         self._rnd = np.random.RandomState(seed=self.cfg.seed)
+
+    def reset_states(self):
+        self.after_reset()
 
     def update_usage(self, mask, infos, dones):
 

@@ -5,11 +5,11 @@ except ImportError:
 
 from pydantic import Extra
 
-from agents.utils_agents import AlgoBase, run_algorithm
+from agents.utils_agents import LearningAlgoBase, run_algorithm
 from planning.replan_algo import RePlanBase, FixLoopsWrapper, NoPathSoRandomOrStayWrapper, FixNonesWrapper
 
 
-class RePlanConfig(AlgoBase, extra=Extra.forbid):
+class RePlanConfig(LearningAlgoBase, extra=Extra.forbid):
     name: Literal['RePlan', 'RePlanCPP', 'RePlanPP'] = 'RePlan'
     num_process: int = 5
     fix_loops: bool = True
@@ -56,6 +56,9 @@ class RePlan:
             self.agent = NoPathSoRandomOrStayWrapper(self.agent)
         elif self.fix_nones:
             self.agent = FixNonesWrapper(self.agent)
+
+    def reset_states(self):
+        self.after_reset()
 
 
 def example_replan(map_name='sc1-AcrosstheCape', max_episode_steps=512, seed=None, num_agents=64, animate=False):
